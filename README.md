@@ -13,7 +13,7 @@ bandori_api.get('cards', function(error, data){
     console.log(data);
 });
 
-bandori_api.get('members', { page:2 }, function(error, data){
+bandori_api.get('members', { school: "Hanasakigawa Girls' Academy" }, function(error, data){
     if(error) throw error;
     console.log(data);
 });
