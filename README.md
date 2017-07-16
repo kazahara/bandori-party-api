@@ -1,6 +1,8 @@
 
 Methods
+
 get(endpoint_name[, parameters], callback)
+
     parameters is the same as you can see on the [documentation](https://github.com/SchoolIdolTomodachi/BanGDream/wiki/BanG-Dream!-Girls-Band-API)
 
 Example code
