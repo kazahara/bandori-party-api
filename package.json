@@ -1,6 +1,6 @@
 {
   "name": "bandori-party-api",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "main": "bandori.js",
   "scripts": {
