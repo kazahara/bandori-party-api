@@ -13,8 +13,12 @@ bandori_api.get('cards', function(error, data){
     console.log(data);
 });
 
-// id and page defaults to 1 if not specified
-bandori_api.get('members', { id: 2, page: 2, school: "Hanasakigawa Girls' Academy" }, function(error, data){
+bandori_api.get('members', { page: 2, school: "Hanasakigawa Girls' Academy" }, function(error, data){
+    if(error) throw error;
+    console.log(data);
+});
+
+bandori_api.get('members', { id: 26 }, function(error, data){
     if(error) throw error;
     console.log(data);
 });
