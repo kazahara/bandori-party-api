@@ -15,7 +15,8 @@ function get(endpoint, parameters, callback) {
 		parameters.id = '';
 	}
 
-	var partial_link = `${api_link}/${endpoint}/${parameters.id}?`
+	var partial_link = `${api_link}/${endpoint}/${parameters.id}?`;
+
 	var endpoint_link = check_for_parameters(partial_link, parameters);
 	request(endpoint_link, (error, response, body) => {
 		var data;
@@ -29,12 +30,39 @@ function get(endpoint, parameters, callback) {
 	});
 }
 
+var i_parameters = {
+	// cards
+	member_id: 'member_id',
+	member_band: 'member_band',
+	rarity: 'i_rarity',
+	attribute: 'i_attribute',
+	trainable: 'trainable',
+	skill_type: 'i_skill_type',
+	// members
+	band: 'i_band',
+	school: 'school',
+	school_year: 'i_school_year',
+	astrological_sign: 'i_astrological_sign'
+};
+
 function check_for_parameters(link, parameters) {
+	var isFirst = true;
 	for (var key in parameters) {
 		if (key == 'id') {
 			continue;
 		}
-		link += `${key}=${parameters[key]}`
+
+		if (!isFirst) {
+			link += `&`;
+		} else {
+			isFirst = false;
+		}
+
+		if (i_parameters[key]) {
+			link += `${i_parameters[key]}=${parameters[key]}`
+		} else {
+			link += `${key}=${parameters[key]}`
+		}
 	}
 	return link;
 }
