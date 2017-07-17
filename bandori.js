@@ -32,15 +32,11 @@ function get(endpoint, parameters, callback) {
 
 var i_parameters = {
 	// cards
-	member_id: 'member_id',
-	member_band: 'member_band',
 	rarity: 'i_rarity',
 	attribute: 'i_attribute',
-	trainable: 'trainable',
 	skill_type: 'i_skill_type',
 	// members
 	band: 'i_band',
-	school: 'school',
 	school_year: 'i_school_year',
 	astrological_sign: 'i_astrological_sign'
 };
