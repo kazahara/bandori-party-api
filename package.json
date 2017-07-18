@@ -6,6 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kazahara/bandori-party-api"
+  },
+  "keywords": [
+      "bang dream",
+      "bandori",
+      "api"
+  ],
   "author": "_kazahara",
   "license": "ISC",
   "dependencies": {
