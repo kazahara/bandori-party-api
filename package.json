@@ -1,7 +1,7 @@
 {
   "name": "bandori-party-api",
   "version": "0.1.6",
-  "description": "",
+  "description": "A node port of bandori.party api.",
   "main": "bandori.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,7 @@
     "url": "https://github.com/kazahara/bandori-party-api"
   },
   "keywords": [
-    "bang dream",
+    "bang_dream",
     "bandori",
     "api"
   ],
