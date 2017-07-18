@@ -1,6 +1,6 @@
 {
   "name": "bandori-party-api",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "main": "bandori.js",
   "scripts": {
@@ -11,9 +11,9 @@
     "url": "https://github.com/kazahara/bandori-party-api"
   },
   "keywords": [
-      "bang dream",
-      "bandori",
-      "api"
+    "bang dream",
+    "bandori",
+    "api"
   ],
   "author": "_kazahara",
   "license": "ISC",
