@@ -16,14 +16,12 @@ function get(endpoint, parameters, callback) {
 	}
 
 	var partial_link = `${api_link}/${endpoint}/${parameters.id}?`;
-
 	var endpoint_link = check_for_parameters(partial_link, parameters);
 	request(endpoint_link, (error, response, body) => {
-		var data;
 		if (response.statusCode == 404) {
-			error = `Not Found\nThe requested URL "${endpoint_link}" was not found.`;
+			error = `The requested URL "${endpoint_link}" was not found.`;
 		} else {
-			data = JSON.parse(body);
+			var data = JSON.parse(body);
 		}
 
 		callback(error, data);
