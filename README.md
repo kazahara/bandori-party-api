@@ -8,6 +8,8 @@ get(endpoint_name[, parameters], callback)
 
 &nbsp;&nbsp;&nbsp;&nbsp;you can also type rarity, attribute and such without "i_" prefix.
 
+&nbsp;&nbsp;&nbsp;&nbsp;**Note:** Giving an id parameter makes the other parameters useless as it only gives one object.
+
 **Example code**
 ~~~~
 var bandori_api = require('bandori-party-api');
