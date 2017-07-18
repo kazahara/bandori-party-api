@@ -2,6 +2,8 @@
 
 get(endpoint_name[, parameters], callback)
 
+&nbsp;&nbsp;&nbsp;&nbsp;**I've been informed that currently the optional parameters doesn't work. Only the id and page will work on parameters right now**
+
 &nbsp;&nbsp;&nbsp;&nbsp;*parameters* is the same as you can see on the [documentation](https://github.com/SchoolIdolTomodachi/BanGDream/wiki/BanG-Dream!-Girls-Band-API).
 
 &nbsp;&nbsp;&nbsp;&nbsp;you can also type rarity, attribute and such without "i_" prefix.
