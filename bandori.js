@@ -1,5 +1,6 @@
 module.exports = {
-	get: get
+	get: get,
+	filter: filter
 };
 
 var request = require('request');
@@ -26,6 +27,14 @@ function get(endpoint, parameters, callback) {
 
 		callback(error, data);
 	});
+}
+
+function filter(data, parameters) {
+	for (var parameter in parameters) {
+		data.results = data.results.filter((value, index, array) => {
+			return (value[parameter] == parameters[parameter]);
+		});
+	}
 }
 
 var i_parameters = {
