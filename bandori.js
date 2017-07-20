@@ -5,24 +5,47 @@ module.exports = {
 
 var request = require('request');
 
-var api_link = 'http://bandori.party/api';
+var bandori_api = 'http://bandori.party/api';
 
 function get(endpoint, parameters, callback) {
 	if (arguments.length == 2) {
 		callback = arguments[1];
-		parameters = {};
-	}
-	if (!parameters.id) {
-		parameters.id = '';
+		parameters = undefined;
 	}
 
-	var partial_link = `${api_link}/${endpoint}/${parameters.id}?`;
-	var endpoint_link = check_for_parameters(partial_link, parameters);
-	request(endpoint_link, (error, response, body) => {
+	if (endpoint == '') {
+		throw new Error('endpoint cannot be an empty String');
+	}
+	if (typeof endpoint != 'string') {
+		throw new TypeError('endpoint is not a String');
+	}
+	if (typeof parameters != 'object' && typeof parameters != 'number' &&
+		parameters != undefined) {
+		throw new TypeError('parameters needs to be an Object or Number');
+	}
+	if (typeof callback != 'function') {
+		throw new TypeError('callback is not a Function');
+	}
+
+	if (typeof parameters == 'number') {
+		var id = parameters;
+		endpoint += `/${id}`;
+	}
+	var options = {
+		baseUrl: bandori_api,
+		url: endpoint,
+		method: `GET`,
+		json: true
+	};
+	if (typeof parameters == 'object') {
+		check_i_parameters(parameters);
+		options.qs = parameters;
+	}
+
+	request(options, (error, response, data) => {
 		if (response.statusCode == 404) {
-			error = `The requested URL "${endpoint_link}" was not found.`;
-		} else {
-			var data = JSON.parse(body);
+			error = `The requested URL "${endpoint}" was not found.`;
+			data = undefined;
 		}
 
 		callback(error, data);
@@ -30,9 +53,17 @@ function get(endpoint, parameters, callback) {
 }
 
 function filter(data, parameters) {
+	if (typeof data != 'object') {
+		throw new TypeError('data is not an object');
+	}
+
+	check_i_parameters(parameters);
+
 	for (var parameter in parameters) {
+		var filter_value = parameters[parameter].toLowerCase();
 		data.results = data.results.filter((value, index, array) => {
-			return (value[parameter] == parameters[parameter]);
+			var object_value = value[parameter].toLowerCase()
+			return (object_value == filter_value);
 		});
 	}
 }
@@ -48,24 +79,18 @@ var i_parameters = {
 	astrological_sign: 'i_astrological_sign'
 };
 
-function check_for_parameters(link, parameters) {
-	var isFirst = true;
-	for (var key in parameters) {
-		if (key == 'id') {
-			continue;
-		}
+function check_i_parameters(parameters) {
+	if (typeof parameters != 'object') {
+		throw new TypeError('parameters is not an object');
+	}
 
-		if (!isFirst) {
-			link += `&`;
-		} else {
-			isFirst = false;
-		}
+	for (var parameter in parameters) {
+		var parameter_value = parameters[parameter];
+		var i_parameter = i_parameters[parameter];
 
-		if (i_parameters[key]) {
-			link += `${i_parameters[key]}=${parameters[key]}`
-		} else {
-			link += `${key}=${parameters[key]}`
+		if (i_parameter) {
+			parameters[i_parameter] = parameter_value;
+			delete parameters[parameter];
 		}
 	}
-	return link;
 }
