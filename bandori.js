@@ -62,7 +62,7 @@ function filter(data, parameters) {
 	for (var parameter in parameters) {
 		var filter_value = parameters[parameter].toLowerCase();
 		data.results = data.results.filter((value, index, array) => {
-			var object_value = value[parameter].toLowerCase()
+			var object_value = value[parameter].toLowerCase();
 			return (object_value == filter_value);
 		});
 	}
