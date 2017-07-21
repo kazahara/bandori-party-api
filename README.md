@@ -12,18 +12,28 @@ get(endpoint_name[, parameters || id], callback)
 ~~~~
 var bandori = require('bandori-party-api');
 
-bandori.get('cards', function(error, data){
-    if(error) throw error;
-    console.log(data);
-});
+var log_data = (response) => {
+	if (response.statusCode == 404) {
+		// Not Found
+	} else {
+		var data = response.body;
+		console.log(data);
+	}
+};
 
-bandori.get('members', { page: 2 }, function(error, data){
-    if(error) throw error;
-    console.log(data);
-});
+var log_error = (error) => {
+	console.log(error);
+};
 
-bandori.get('members', 26, function(error, data){
-    if(error) throw error;
-    console.log(data);
-});
+bandori.get('cards')
+	.then(log_data)
+	.catch(log_error);
+
+bandori.get('members', { page: 2 })
+	.then(log_data)
+	.catch(log_error);
+
+bandori.get('members', 26)
+	.then(log_data)
+	.catch(log_error);
 ~~~~
