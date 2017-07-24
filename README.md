@@ -1,6 +1,5 @@
-![alt text][logo]
-
 ## Methods
+
 ### get(endpoint_name[, parameters || id])
 
 > Currently the optional parameters doesn't work. Only the page parameter works on parameters right now
@@ -43,5 +42,3 @@ bandori.get(`members`, 26)
   .catch(log_error);
 
 ~~~~
-
-[logo]: https://raw.githubusercontent.com/SchoolIdolTomodachi/BanGDream-Static/master/img/bandori_party_logo.png "Bandori Party"
