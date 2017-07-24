@@ -1,99 +1,114 @@
 module.exports = {
-	get: get,
-	filter: filter
+  get: get,
+  filter: filter
 };
 
-var request = require('request');
+const request = require(`request`);
 
-var bandori_api = 'http://bandori.party/api';
+const bandori_api = `http://bandori.party/api`;
 
 function get(endpoint, parameters) {
-	var promise = new Promise((resolve, reject) => {
-		if (endpoint == '') {
-			throw new Error('first argument of get() cannot be an empty String');
-		}
-		if (typeof endpoint != 'string') {
-			throw new TypeError('first argument of get() is not a String');
-		}
-		if (typeof parameters != 'object' && typeof parameters != 'number' &&
-			parameters != undefined) {
-			throw new TypeError('second argument of get() needs to be an Object or Number');
-		}
+  let promise = new Promise((resolve, reject) => {
+    if (endpoint == ``) {
+      throw new Error(
+        `bandori.get(endpoint[, parameters]): First argument cannot be an empty String
+       `);
+    }
+    if (typeof endpoint != `string`) {
+      throw new TypeError(
+        `bandori.get(endpoint[, parameters]): First argument is not a String
+        `);
+    }
+    if (typeof parameters != `object` && typeof parameters != `number` &&
+      parameters != undefined) {
+      throw new TypeError(
+        `bandori.get(endpoint[, parameters]): Second argument needs to be an Object or a Number
+        `);
+    }
 
-		if (typeof parameters == 'number') {
-			var id = parameters;
-			endpoint += `/${id}`;
-		}
-		var options = {
-			baseUrl: bandori_api,
-			url: endpoint,
-			method: `GET`,
-			json: true
-		};
-		if (typeof parameters == 'object') {
-			check_i_parameters(parameters);
-			options.qs = parameters;
-		}
+    let options = {
+      method: `GET`,
+      json: true,
+      baseUrl: bandori_api,
+      url: (() => {
+        if (typeof parameters == `number`) {
+          let id = parameters;
+          return `${endpoint}/${id}`;
+        } else {
+          return endpoint;
+        }
+      })(),
+      qs: (() => {
+        if (typeof parameters == `object`) {
+          check_i_parameters(parameters);
+          return parameters;
+        } else {
+          return undefined;
+        }
+      })()
+    };
 
-		request(options, (error, response, data) => {
-			response.body = data;
-			resolve(response);
-		});
-	});
-	return promise;
+    request(options, (error, response, data) => {
+      response.body = data;
+      resolve(response);
+    });
+  });
+  return promise;
 }
 
 function filter(data, parameters) {
-	var promise = new Promise((resolve, reject) => {
-		if (typeof data != 'object') {
-			throw new TypeError('first argument is not an object');
-		}
+  let promise = new Promise((resolve, reject) => {
+    if (typeof data != `object`) {
+      throw new TypeError(
+        `bandori.filter(data, parameters): First argument is not an Object
+        `);
+    }
 
-		check_i_parameters(parameters);
+    check_i_parameters(parameters);
 
-		for (var parameter in parameters) {
-			var filter_value = parameters[parameter];
-			if (typeof filter_value == 'number') {
-				filter_value = filter_value.toString();
-			}
-			filter_value = filter_value.toLowerCase();
-			var filtered_data = data.results.filter((value, index, array) => {
-				var object_value = value[parameter];
-				if (typeof object_value == 'number') {
-					object_value = object_value.toString();
-				}
-				object_value = object_value.toLowerCase();
-				return (object_value == filter_value);
-			});
-		}
-		resolve(filtered_data);
-	});
-	return promise;
+    for (let parameter in parameters) {
+      let filter_value = parameters[parameter];
+      if (typeof filter_value == `string`) {
+        filter_value = filter_value.toLowerCase();
+      }
+      let filtered_data = data.results.filter((value, index, array) => {
+        let object_value = value[parameter];
+        if (typeof object_value == `string`) {
+          object_value = object_value.toLowerCase();
+        }
+        return (object_value == filter_value);
+      });
+    }
+
+    resolve(filtered_data);
+  });
+  return promise;
 }
 
-var i_parameters = {
-	// cards
-	rarity: 'i_rarity',
-	attribute: 'i_attribute',
-	skill_type: 'i_skill_type',
-	// members
-	band: 'i_band',
-	school_year: 'i_school_year',
-	astrological_sign: 'i_astrological_sign'
-};
-
 function check_i_parameters(parameters) {
-	if (typeof parameters != 'object') {
-		throw new TypeError('first argument is not an object');
-	}
+  if (typeof parameters != `object`) {
+    throw new TypeError(
+      `First argument is not an object`);
+  }
 
-	for (var parameter in parameters) {
-		var parameter_value = parameters[parameter];
-		var i_parameter = i_parameters[parameter];
+  let i_parameters = {
+    // cards
+    rarity: `i_rarity`,
+    attribute: `i_attribute`,
+    skill_type: `i_skill_type`,
+    // members
+    band: `i_band`,
+    school_year: `i_school_year`,
+    astrological_sign: `i_astrological_sign`
+  };
 
-		if (i_parameter) {
-			parameters[i_parameter] = parameter_value;
-			delete parameters[parameter];
-		}
-	}
+  for (let parameter in parameters) {
+    let parameter_value = parameters[parameter];
+    let i_parameter = i_parameters[parameter];
+
+    if (i_parameter) {
+      parameters[i_parameter] = parameter_value;
+      delete parameters[parameter];
+    }
+  }
 }
