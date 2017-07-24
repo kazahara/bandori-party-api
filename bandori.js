@@ -40,7 +40,7 @@ function get(endpoint, parameters) {
       })(),
       qs: (() => {
         if (typeof parameters == `object`) {
-          check_i_parameters(parameters);
+          attach_i_prefix(parameters);
           return parameters;
         } else {
           return undefined;
@@ -64,19 +64,19 @@ function filter(data, parameters) {
         `);
     }
 
-    check_i_parameters(parameters);
+    attach_i_prefix(parameters);
 
-    for (let parameter in parameters) {
+    for (const parameter in parameters) {
       let filter_value = parameters[parameter];
       if (typeof filter_value == `string`) {
         filter_value = filter_value.toLowerCase();
       }
       let filtered_data = data.results.filter((value, index, array) => {
-        let object_value = value[parameter];
-        if (typeof object_value == `string`) {
-          object_value = object_value.toLowerCase();
+        let parameter_value = value[parameter];
+        if (typeof parameter_value == `string`) {
+          parameter_value = parameter_value.toLowerCase();
         }
-        return (object_value == filter_value);
+        return (parameter_value == filter_value);
       });
     }
 
@@ -85,7 +85,7 @@ function filter(data, parameters) {
   return promise;
 }
 
-function check_i_parameters(parameters) {
+function attach_i_prefix(parameters) {
   if (typeof parameters != `object`) {
     throw new TypeError(
       `First argument is not an object`);
@@ -102,7 +102,7 @@ function check_i_parameters(parameters) {
     astrological_sign: `i_astrological_sign`
   };
 
-  for (let parameter in parameters) {
+  for (const parameter in parameters) {
     let parameter_value = parameters[parameter];
     let i_parameter = i_parameters[parameter];
 
