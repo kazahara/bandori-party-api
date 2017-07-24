@@ -1,3 +1,5 @@
+![alt text][logo]
+
 ## Methods
 ---
 **get(endpoint_name[, parameters || id])**
@@ -43,3 +45,5 @@ bandori.get(`members`, 26)
   .catch(log_error);
 
 ~~~~
+
+[logo]: https://raw.githubusercontent.com/SchoolIdolTomodachi/BanGDream-Static/master/img/bandori_party_logo.png "Bandori Party"
