@@ -1,12 +1,10 @@
 ## Methods
 
-### get(endpoint_name[, parameters || id])
+### get(endpoint[, parameters || id])
 
 > Currently the optional parameters doesn't work. Only the page parameter works on parameters right now
 
-**Note**: *parameters* is the same as you can see on the [documentation](https://github.com/SchoolIdolTomodachi/BanGDream/wiki/BanG-Dream!-Girls-Band-API).
-
-~~*you can also type rarity, attribute and such without "i_" prefix.*~~
+**Note**: *parameters* is the same as the [documentation](https://github.com/SchoolIdolTomodachi/BanGDream/wiki/BanG-Dream!-Girls-Band-API).
 
 ## Example code
 ~~~~javascript
@@ -29,11 +27,7 @@ bandori.get(`cards`)
   .then(log_data)
   .catch(log_error);
 
-let parameters = {
-  page: 2
-};
-
-bandori.get(`members`, parameters)
+bandori.get(`members`, { page: 2 })
   .then(log_data)
   .catch(log_error);
 
