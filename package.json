@@ -17,7 +17,5 @@
   ],
   "author": "_kazahara",
   "license": "ISC",
-  "dependencies": {
-    "request": "^2.81.0"
-  }
+  "dependencies": {}
 }
