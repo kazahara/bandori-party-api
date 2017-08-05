@@ -1,8 +1,11 @@
+## Requirements
++ node 8.x
+
 ## Methods
 
 ### get(endpoint[, parameters || id])
 
-> Currently the optional parameters doesn't work. Only the page parameter works on parameters right now
+> Currently the optional parameters doesn't work. <br />Only the page parameter works on parameters right now
 
 **Note**: *parameters* is the same as the [documentation](https://github.com/SchoolIdolTomodachi/BanGDream/wiki/BanG-Dream!-Girls-Band-API).
 
@@ -10,13 +13,8 @@
 ~~~~javascript
 const bandori = require(`bandori-party-api`);
 
-var log_data = (response) => {
-  if (response.statusCode == 404) {
-    // Not Found
-  } else {
-    let data = response.body;
-    console.log(data);
-  }
+var log_data = (data) => {
+  console.log(data);
 };
 
 var log_error = (error) => {
