@@ -11,26 +11,21 @@
 
 ## Example code
 ~~~~javascript
-const bandori = require(`bandori-party-api`);
+const bandori = require(`bandori-party-api`)
 
-var log_data = (data) => {
-  console.log(data);
-};
+async function getCards(){
+  try{
+    const cards = await bandori.get('cards')
+    console.log(cards)
+  } catch (error){
+    console.log(error)
+  }
+}
 
-var log_error = (error) => {
-  console.log(error);
-};
-
-bandori.get(`cards`)
-  .then(log_data)
-  .catch(log_error);
-
-bandori.get(`members`, { page: 2 })
-  .then(log_data)
-  .catch(log_error);
-
-bandori.get(`members`, 26)
-  .then(log_data)
-  .catch(log_error);
+getCards()
+// the async function above is equal to:
+// bandori.get('cards')
+//   .then(cards => console.log(cards))
+//   .catch(error => console.log(error))
 
 ~~~~
