@@ -1,6 +1,6 @@
 {
   "name": "bandori-party-api",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A node port of bandori.party api.",
   "main": "bandori.js",
   "scripts": {
